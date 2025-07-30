@@ -1,4 +1,19 @@
-@import "tailwindcss/preflight";
+/*
+ * Tailwind directives
+ *
+ * Include the base, component and utilities layers provided by Tailwind.
+ * Without these directives, none of the framework’s styles will be
+ * generated and your classes will have no effect.  See the Tailwind docs
+ * for more details: https://tailwindcss.com/docs/functions-and-directives#tailwind.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Utilities layer will be injected automatically */
+/*
+ * Import our design tokens and custom layer definitions.  The
+ * variables and `@layer base` definitions in `globals.css` build on top of
+ * Tailwind’s base layer, so they need to be imported after the
+ * framework directives above.
+ */
 @import "./globals.css";
