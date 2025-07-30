@@ -1,0 +1,4 @@
+@import "tailwindcss/preflight";
+
+/* Utilities layer will be injected automatically */
+@import "./globals.css";

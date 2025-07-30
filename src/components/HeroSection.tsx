@@ -1,0 +1,313 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+import {
+  Shield,
+  Users,
+  Clock,
+  CheckCircle,
+  Star,
+  ArrowRight,
+  Play,
+  Smartphone,
+  Lock,
+  BarChart3,
+} from "lucide-react";
+import { motion } from "framer-motion";
+
+import { ImageWithFallback } from "./figma/ImageWithFallback";
+
+interface HeroSectionProps {
+  onGetStarted: () => void;
+}
+
+export function HeroSection({ onGetStarted }: HeroSectionProps) {
+  const [visitorCount, setVisitorCount] = useState(847532);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setVisitorCount((prev) => prev + Math.floor(Math.random() * 3) + 1);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const testimonialImages = [
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+    "https://images.unsplash.com/photo-1494790108755-2616b60d4e33?w=150&h=150&fit=crop&crop=face",
+    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+    "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+  ];
+
+  const backgroundPattern =
+    'data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22…(%22)%3E'; // truncated for brevity
+
+  return (
+    <section className="relative bg-gradient-to-br from-green-50 via-white to-yellow-50 pt-8 pb-20 overflow-hidden">
+      {/* Animated Background Pattern */}
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{ backgroundImage: `url("${backgroundPattern}")` }}
+      />
+
+      {/* Floating Dots */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-4 h-4 bg-green-200 rounded-full"
+            style={{
+              left: `${20 + i * 15}%`,
+              top: `${20 + i * 10}%`,
+            }}
+            animate={{ y: [-20, 20, -20], opacity: [0.3, 0.8, 0.3] }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: i * 0.5,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            {/* Left */}
+            <motion.div
+              className="space-y-8 text-center lg:text-left"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.div
+                className="inline-flex items-center px-4 py-2 text-sm bg-green-100 text-green-700 border border-green-200 rounded-full"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <Star className="w-4 h-4 mr-1" />
+                Trusted by 10+ Estates
+              </motion.div>
+
+              <motion.h1
+                className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 leading-tight"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                Seamless Visitor Management for{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-yellow-500">
+                  Modern Estates
+                </span>
+              </motion.h1>
+
+              <motion.p
+                className="text-lg lg:text-xl text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                Transform your estate's security with GuestPass – the smart
+                visitor management system that ensures smooth entry, enhanced
+                security, and complete peace of mind.
+              </motion.p>
+
+              {/* CTA */}
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <button
+                  onClick={onGetStarted}
+                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-8 py-4 text-lg shadow-lg rounded-lg inline-flex items-center gap-2 transition-all duration-200"
+                >
+                  Get Started Today
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+                <button className="border-2 border-green-500 text-green-600 hover:bg-green-50 px-8 py-4 text-lg rounded-lg inline-flex items-center gap-2 transition-all duration-200">
+                  <Play className="w-5 h-5" />
+                  Watch Demo
+                </button>
+              </motion.div>
+
+              {/* Stats */}
+              <motion.div
+                className="grid grid-cols-3 gap-4 pt-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                <div className="text-center lg:text-left">
+                  <motion.div
+                    key={visitorCount}
+                    className="text-2xl lg:text-3xl font-bold text-green-600"
+                    initial={{ scale: 1.2 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {visitorCount.toLocaleString()}
+                  </motion.div>
+                  <div className="text-sm text-gray-600">Visitors Served</div>
+                </div>
+                <div className="text-center lg:text-left">
+                  <div className="text-2xl lg:text-3xl font-bold text-green-600">
+                    99.9%
+                  </div>
+                  <div className="text-sm text-gray-600">Uptime</div>
+                </div>
+                <div className="text-center lg:text-left">
+                  <div className="text-2xl lg:text-3xl font-bold text-green-600">
+                    24/7
+                  </div>
+                  <div className="text-sm text-gray-600">Support</div>
+                </div>
+              </motion.div>
+
+              {/* Avatars */}
+              <motion.div
+                className="flex items-center justify-center lg:justify-start space-x-2 pt-4"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+              >
+                <div className="flex -space-x-2">
+                  {testimonialImages.map((src, i) => (
+                    <motion.div
+                      key={i}
+                      className="w-10 h-10 rounded-full border-2 border-white overflow-hidden"
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.8 + i * 0.1 }}
+                      whileHover={{ scale: 1.1, zIndex: 10 }}
+                    >
+                      <ImageWithFallback
+                        src={src}
+                        alt={`Customer ${i + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+                  ))}
+                  <div className="w-10 h-10 rounded-full border-2 border-white bg-green-500 text-white flex items-center justify-center text-sm font-medium">
+                    +50
+                  </div>
+                </div>
+                <div className="text-sm text-gray-600 ml-3">
+                  Join thousands of satisfied users
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Right */}
+            <motion.div
+              className="relative mt-8 lg:mt-0"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              {/* Dashboard Preview */}
+              <div className="bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden hover:shadow-3xl transition-shadow duration-300">
+                <div className="bg-gradient-to-r from-green-500 to-green-600 px-6 py-4 flex items-center gap-3 text-white">
+                  <div className="w-3 h-3 bg-white/30 rounded-full" />
+                  <div className="w-3 h-3 bg-white/30 rounded-full" />
+                  <div className="w-3 h-3 bg-white/30 rounded-full" />
+                  <span className="font-medium">GuestPass Dashboard</span>
+                </div>
+
+                <div className="p-6 space-y-4">
+                  {/* Header */}
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        Today's Activity
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        Real-time visitor insights
+                      </p>
+                    </div>
+                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                      <BarChart3 className="w-6 h-6 text-green-600" />
+                    </div>
+                  </div>
+
+                  {/* Cards */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="p-4 border border-gray-200 rounded-lg bg-white">
+                      <div className="text-2xl font-bold text-green-600">
+                        24
+                      </div>
+                      <div className="text-xs text-gray-600">
+                        Active Visitors
+                      </div>
+                    </div>
+                    <div className="p-4 border border-gray-200 rounded-lg bg-white">
+                      <div className="text-2xl font-bold text-yellow-500">
+                        8
+                      </div>
+                      <div className="text-xs text-gray-600">
+                        Pre-admitted
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Recent */}
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-medium text-gray-900">
+                      Recent Visitors
+                    </h4>
+                    <div className="space-y-2">
+                      {[0, 1, 2].map((i) => (
+                        <motion.div
+                          key={i}
+                          className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 1 + i * 0.1 }}
+                        >
+                          <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <Users className="w-4 h-4 text-green-600" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="text-sm font-medium">
+                              Guest {i + 1}
+                            </div>
+                            <div className="text-xs text-gray-600">
+                              Building A • {10 + i} mins ago
+                            </div>
+                          </div>
+                          <div className="w-2 h-2 bg-green-500 rounded-full" />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile Feature Cards */}
+              <div className="grid grid-cols-2 gap-4 mt-8 lg:hidden">
+                {[
+                  { Icon: Shield, title: "Secure Entry", color: "text-green-600" },
+                  { Icon: Smartphone, title: "Mobile Ready", color: "text-yellow-500" },
+                  { Icon: Users, title: "Guest Management", color: "text-green-600" },
+                  { Icon: CheckCircle, title: "Easy Setup", color: "text-yellow-500" },
+                ].map(({ Icon, title, color }, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-white p-4 rounded-xl shadow-lg border border-gray-200"
+                  >
+                    <div className={`w-10 h-10 bg-${color.slice(5)}-100 rounded-lg flex items-center justify-center mb-3`}>
+                      <Icon className={`w-5 h-5 ${color}`} />
+                    </div>
+                    <h4 className="font-medium text-sm mb-1">{title}</h4>
+                    <p className="text-xs text-gray-600">Learn more</p>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
